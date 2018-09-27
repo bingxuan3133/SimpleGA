@@ -17,8 +17,9 @@ public class GA {
             System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
             myPop = Algorithm.evolvePopulation(myPop);
         }
+        generationCount++;
+        System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
         System.out.println("Solution found!");
-        System.out.println("Generation: " + generationCount);
         System.out.println("Genes:");
         System.out.println(myPop.getFittest());
 
