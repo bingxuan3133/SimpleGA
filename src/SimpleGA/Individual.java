@@ -2,10 +2,29 @@ package SimpleGA;
 
 public class Individual {
 
-    static int defaultGeneLength = 64;
+    static int defaultGeneLength = 128;
     private byte[] genes = new byte[defaultGeneLength];
     // Cache
     private int fitness = 0;
+    private double probability = 0;
+    private double accProbability = 0;
+
+
+    public double getAccProbability() {
+        return accProbability;
+    }
+
+    public void setAccProbability(double accProbability) {
+        this.accProbability = accProbability;
+    }
+
+    public double getProbability() {
+        return probability;
+    }
+
+    public void setProbability(double probability) {
+        this.probability = probability;
+    }
 
     // Create a random individual
     public void generateIndividual() {
@@ -50,4 +69,6 @@ public class Individual {
         }
         return geneString;
     }
+
 }
+

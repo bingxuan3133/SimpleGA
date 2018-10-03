@@ -47,4 +47,11 @@ public class Population {
     public void saveIndividual(int index, Individual indiv) {
         individuals[index] = indiv;
     }
+
+    public int getTotalFitness() {
+        int fitness = 0;
+        for (Individual individual: this.individuals)
+            fitness =+ individual.getFitness();
+        return fitness;
+    }
 }

@@ -5,7 +5,7 @@ public class GA {
     public static void main(String[] args) {
 
         // Set a candidate solution
-        FitnessCalc.setSolution("1111000000000000000000000000000000000000000000000000000000001111");
+        FitnessCalc.setSolution("11110000000000000000000000000000000000000000000000000000000011111111000000000000000000000000000000000000000000000000000000001111");
 
         // Create an initial population
         Population myPop = new Population(50, true);

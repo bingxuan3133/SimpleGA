@@ -29,8 +29,8 @@ public class Algorithm {
         // Loop over the population size and create new individuals with
         // crossover
         for (int i = elitismOffset; i < pop.size(); i++) {
-            Individual indiv1 = tournamentSelection(pop);
-            Individual indiv2 = tournamentSelection(pop);
+            Individual indiv1 = FPSelection(pop);
+            Individual indiv2 = FPSelection(pop);
             Individual newIndiv = crossover(indiv1, indiv2);
             newPopulation.saveIndividual(i, newIndiv);
         }
@@ -55,6 +55,24 @@ public class Algorithm {
                 newSol.setGene(i, indiv2.getGene(i));
             }
         }
+        return newSol;
+    }
+
+    // onePointCrossover individuals
+    private static Individual onePointCrossover(Individual indiv1, Individual indiv2) {
+        Individual newSol = new Individual();
+
+        int randomId = (int) (Math.random() * (indiv1.size() + 1)); // there is difference index=0 & index=size
+        // Loop through genes
+        for (int i = 0; i < indiv1.size(); i++) {
+            // Crossover
+            if (i < randomId) {
+                newSol.setGene(i, indiv1.getGene(i));
+            } else {
+                newSol.setGene(i, indiv2.getGene(i));
+            }
+        }
+
         return newSol;
     }
 
@@ -83,4 +101,31 @@ public class Algorithm {
         Individual fittest = tournament.getFittest();
         return fittest;
     }
+
+    // Select individuals for crossover
+    private static Individual FPSelection(Population pop) {
+        // setup for FPS
+        calcPMating(pop);
+        double roll = Math.random();
+        Individual selected = null;
+        for (Individual individual : pop.individuals) {
+            double lastProbability = 0;
+            if (roll >= lastProbability && roll < individual.getAccProbability()) {
+                selected = individual;
+                return selected;
+            }
+            lastProbability = individual.getAccProbability();
+        }
+        return selected;
+    }
+
+    public static void calcPMating(Population pop) {
+        double accProbability = 0;
+        for (Individual individual : pop.individuals) {
+            individual.setProbability(individual.getFitness()/pop.getTotalFitness());
+            accProbability =+ individual.getProbability();
+            individual.setAccProbability(accProbability);
+        }
+    }
+
 }
